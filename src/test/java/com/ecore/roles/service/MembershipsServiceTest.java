@@ -14,15 +14,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.ecore.roles.utils.TestData.DEFAULT_MEMBERSHIP;
-import static com.ecore.roles.utils.TestData.DEVELOPER_ROLE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.ecore.roles.utils.TestData.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MembershipsServiceTest {
@@ -49,12 +44,15 @@ class MembershipsServiceTest {
         when(membershipRepository
                 .save(expectedMembership))
                         .thenReturn(expectedMembership);
+        when(teamsService.getTeamById(expectedMembership.getTeamId()))
+                .thenReturn(ORDINARY_CORAL_LYNX_TEAM());
 
         Membership actualMembership = membershipsService.assignRoleToMembership(expectedMembership);
 
         assertNotNull(actualMembership);
         assertEquals(actualMembership, expectedMembership);
         verify(roleRepository).findById(expectedMembership.getRole().getId());
+        verify(teamsService).getTeamById(expectedMembership.getTeamId());
     }
 
     @Test
@@ -75,8 +73,8 @@ class MembershipsServiceTest {
 
         assertEquals("Membership already exists", exception.getMessage());
         verify(roleRepository, times(0)).getById(any());
-        verify(usersService, times(0)).getUser(any());
-        verify(teamsService, times(0)).getTeam(any());
+        verify(usersService, times(0)).getUserById(any());
+        verify(teamsService, times(0)).getTeamById(any());
     }
 
     @Test
@@ -90,8 +88,8 @@ class MembershipsServiceTest {
         assertEquals("Invalid 'Role' object", exception.getMessage());
         verify(membershipRepository, times(0)).findByUserIdAndTeamId(any(), any());
         verify(roleRepository, times(0)).getById(any());
-        verify(usersService, times(0)).getUser(any());
-        verify(teamsService, times(0)).getTeam(any());
+        verify(usersService, times(0)).getUserById(any());
+        verify(teamsService, times(0)).getTeamById(any());
     }
 
     @Test

@@ -19,10 +19,12 @@ public class TeamsServiceImpl implements TeamsService {
         this.teamsClient = teamsClient;
     }
 
-    public Team getTeam(UUID id) {
-        return teamsClient.getTeam(id).getBody();
+    @Override
+    public Team getTeamById(UUID teamId) {
+        return teamsClient.getTeam(teamId).getBody();
     }
 
+    @Override
     public List<Team> getTeams() {
         return teamsClient.getTeams().getBody();
     }

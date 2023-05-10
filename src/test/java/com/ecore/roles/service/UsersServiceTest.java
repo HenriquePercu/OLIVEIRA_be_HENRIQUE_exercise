@@ -32,6 +32,6 @@ class UsersServiceTest {
                         .status(HttpStatus.OK)
                         .body(gianniUser));
 
-        assertNotNull(usersService.getUser(UUID_1));
+        assertNotNull(usersService.getUserById(UUID_1));
     }
 }

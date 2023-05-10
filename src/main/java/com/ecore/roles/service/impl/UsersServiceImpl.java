@@ -19,9 +19,11 @@ public class UsersServiceImpl implements UsersService {
         this.usersClient = usersClient;
     }
 
-    public User getUser(UUID id) {
-        return usersClient.getUser(id).getBody();
+    @Override
+    public User getUserById(UUID userId) {
+        return usersClient.getUser(userId).getBody();
     }
+    // TODO se o user não existir deveria retornar um ResourceNotFoundException
 
     public List<User> getUsers() {
         return usersClient.getUsers().getBody();

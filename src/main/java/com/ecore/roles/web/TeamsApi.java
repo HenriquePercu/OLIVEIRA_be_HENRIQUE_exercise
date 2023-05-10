@@ -10,6 +10,6 @@ public interface TeamsApi {
 
     ResponseEntity<List<TeamDto>> getTeams();
 
-    ResponseEntity<TeamDto> getTeam(UUID teamId);
+    ResponseEntity<TeamDto> getTeamById(UUID teamId);
 
 }

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface TeamsService {
 
-    Team getTeam(UUID id);
+    Team getTeamById(UUID id);
 
     List<Team> getTeams();
 }

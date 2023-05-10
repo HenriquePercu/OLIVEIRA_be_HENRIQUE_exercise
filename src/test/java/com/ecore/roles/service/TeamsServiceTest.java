@@ -31,6 +31,6 @@ class TeamsServiceTest {
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(ordinaryCoralLynxTeam));
-        assertNotNull(TeamsService.getTeam(ORDINARY_CORAL_LYNX_TEAM_UUID));
+        assertNotNull(TeamsService.getTeamById(ORDINARY_CORAL_LYNX_TEAM_UUID));
     }
 }

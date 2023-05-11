@@ -11,12 +11,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
-import static com.ecore.roles.utils.TestData.DEVELOPER_ROLE;
-import static com.ecore.roles.utils.TestData.UUID_1;
+import static com.ecore.roles.utils.TestData.*;
 import static java.lang.String.format;
+import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,7 +53,7 @@ class RolesServiceTest {
     @Test
     public void shouldReturnRoleWhenRoleIdExists() {
         Role developerRole = DEVELOPER_ROLE();
-        when(roleRepository.findById(developerRole.getId())).thenReturn(Optional.of(developerRole));
+        when(roleRepository.findById(developerRole.getId())).thenReturn(of(developerRole));
 
         Role role = rolesService.getRoleById(developerRole.getId());
 
@@ -68,5 +67,25 @@ class RolesServiceTest {
                 () -> rolesService.getRoleById(UUID_1));
 
         assertEquals(format("Role %s not found", UUID_1), exception.getMessage());
+    }
+
+    @Test
+    public void shouldReturnRoleWhenSearchByRoleIdAndUserId() {
+        when(membershipRepository.findByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID)).thenReturn(of(DEFAULT_MEMBERSHIP()));
+
+        Role role = rolesService.getRoleByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID);
+
+        assertNotNull(role);
+        assertEquals(role.getId(), DEVELOPER_ROLE().getId());
+        assertEquals(role.getName(), DEVELOPER_ROLE().getName());
+        verify(membershipRepository.findByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID));
+    }
+
+    @Test
+    public void shouldFailToReturnRoleWhenTeamDoesNotExist() {
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                () -> rolesService.getRoleByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID));
+
+        assertEquals(format("Team %s not found", ORDINARY_CORAL_LYNX_TEAM_UUID), exception.getMessage());
     }
 }

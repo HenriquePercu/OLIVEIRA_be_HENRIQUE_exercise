@@ -11,8 +11,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 import static com.ecore.roles.utils.TestData.GIANNI_USER;
 import static com.ecore.roles.utils.TestData.UUID_1;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -33,5 +36,17 @@ class UsersServiceTest {
                         .body(gianniUser));
 
         assertNotNull(usersService.getUserById(UUID_1));
+    }
+
+    @Test
+    void shouldReturnAllUsers() {
+        when(usersClient.getUsers()).thenReturn(ResponseEntity.
+                status(HttpStatus.OK)
+                .body(List.of(GIANNI_USER(), GIANNI_USER())));
+
+        var users = usersService.getUsers();
+
+        assertNotNull(users);
+        assertEquals(users.size(), 2);
     }
 }

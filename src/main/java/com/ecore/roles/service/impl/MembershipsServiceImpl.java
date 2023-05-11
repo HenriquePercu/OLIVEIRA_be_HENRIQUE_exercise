@@ -39,18 +39,17 @@ public class MembershipsServiceImpl implements MembershipsService {
     }
 
     @Override
-    public Membership assignRoleToMembership(@NonNull Membership membership) { // TODO mudar o nome dessa variabel m pela amor
+    public Membership assignRoleToMembership(@NonNull Membership membership) {
 
         UUID roleId = ofNullable(membership.getRole()).map(Role::getId)
                 .orElseThrow(() -> new InvalidArgumentException(Role.class));
 
-        // TODO deixar validacao em outro método privado
         if (membershipRepository.findByUserIdAndTeamId(membership.getUserId(), membership.getTeamId())
                 .isPresent()) {
-            throw new ResourceExistsException(Membership.class); // TODO mudar para passar as variaveis para a excecao e retornar corretamente
+            throw new ResourceExistsException(Membership.class);
         }
 
-        roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId)); // TODO ta estranho essa linha, deixar ela igual a outra, ou ao contratio
+        roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
 
         Team team = ofNullable(teamsService.getTeamById(membership.getTeamId())).orElseThrow(() -> new ResourceNotFoundException(Team.class, membership.getTeamId()));
 
@@ -62,7 +61,7 @@ public class MembershipsServiceImpl implements MembershipsService {
     }
 
     @Override
-    public List<Membership> getMemberships(@NonNull UUID rid) { // TODO mudar o nome da variável e o nome do método
-        return membershipRepository.findByRoleId(rid);
+    public List<Membership> getMemberships(@NonNull UUID roleId) {
+        return membershipRepository.findByRoleId(roleId);
     }
 }

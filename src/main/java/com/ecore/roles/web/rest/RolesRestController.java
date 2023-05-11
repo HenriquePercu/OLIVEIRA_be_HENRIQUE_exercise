@@ -18,7 +18,6 @@ import static com.ecore.roles.web.dto.RoleDto.fromModel;
 @RestController
 @RequestMapping(value = "/v1/roles")
 public class RolesRestController implements RolesApi {
-    // TODO not every operation is on swagger
     private final RolesService rolesService;
 
     @Override
@@ -58,4 +57,16 @@ public class RolesRestController implements RolesApi {
                 .body(fromModel(rolesService.getRoleById(roleId)));
     }
 
+    @Override
+    @GetMapping(
+            path = "/search",
+            produces = {"application/json"})
+    public ResponseEntity<RoleDto> getRoleByUserIdAndTeamId(
+            @RequestParam UUID teamMemberId,
+            @RequestParam UUID teamId) {
+
+        return ResponseEntity
+                .status(200)
+                .body(fromModel(rolesService.getRoleByUserIdAndTeamId(teamMemberId, teamId)));
+    }
 }

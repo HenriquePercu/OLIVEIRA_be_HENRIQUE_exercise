@@ -23,7 +23,6 @@ public class UsersServiceImpl implements UsersService {
     public User getUserById(UUID userId) {
         return usersClient.getUser(userId).getBody();
     }
-    // TODO se o user não existir deveria retornar um ResourceNotFoundException
 
     public List<User> getUsers() {
         return usersClient.getUsers().getBody();

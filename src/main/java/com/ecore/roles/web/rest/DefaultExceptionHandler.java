@@ -31,10 +31,6 @@ public class DefaultExceptionHandler {
         return createResponse(500, exception.getMessage());
     }
 
-    // TODO ter um handler generico
-
-    // TODO ter um handler para quando for enviado uma informacao errada
-
     private ResponseEntity<ErrorResponse> createResponse(int status, String exception) {
         return ResponseEntity
                 .status(status)

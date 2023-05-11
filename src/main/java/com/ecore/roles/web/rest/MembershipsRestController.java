@@ -19,7 +19,7 @@ import static com.ecore.roles.web.dto.MembershipDto.fromModel;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/roles/memberships")
-public class MembershipsRestController implements MembershipsApi { // TODO put classses in singular
+public class MembershipsRestController implements MembershipsApi {
 
     private final MembershipsService membershipsService;
 

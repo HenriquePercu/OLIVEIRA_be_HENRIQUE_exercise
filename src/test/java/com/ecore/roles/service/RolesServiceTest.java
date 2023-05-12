@@ -71,7 +71,8 @@ class RolesServiceTest {
 
     @Test
     public void shouldReturnRoleWhenSearchByRoleIdAndUserId() {
-        when(membershipRepository.findByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID)).thenReturn(of(DEFAULT_MEMBERSHIP()));
+        when(membershipRepository.findByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID))
+                .thenReturn(of(DEFAULT_MEMBERSHIP()));
 
         Role role = rolesService.getRoleByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID);
 

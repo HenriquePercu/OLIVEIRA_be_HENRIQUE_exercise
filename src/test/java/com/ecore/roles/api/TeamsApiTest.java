@@ -61,7 +61,6 @@ public class TeamsApiTest {
         Team expectedTeam = ORDINARY_CORAL_LYNX_TEAM();
         mockGetTeamById(mockServer, expectedTeam.getId(), expectedTeam);
 
-
         TeamDto actualTeam = getTeamById(expectedTeam.getId())
                 .statusCode(200)
                 .extract().as(TeamDto.class);

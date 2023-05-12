@@ -40,8 +40,7 @@ class UsersServiceTest {
 
     @Test
     void shouldReturnAllUsers() {
-        when(usersClient.getUsers()).thenReturn(ResponseEntity.
-                status(HttpStatus.OK)
+        when(usersClient.getUsers()).thenReturn(ResponseEntity.status(HttpStatus.OK)
                 .body(List.of(GIANNI_USER(), GIANNI_USER())));
 
         var users = usersService.getUsers();

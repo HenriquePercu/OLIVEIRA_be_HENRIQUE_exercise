@@ -60,7 +60,7 @@ public class MockUtils {
 
     public static void mockGetAllTeams(MockRestServiceServer mockServer, List<Team> teams) {
         try {
-            mockServer.expect(ExpectedCount.manyTimes(), requestTo("http://test.com/teams" ))
+            mockServer.expect(ExpectedCount.manyTimes(), requestTo("http://test.com/teams"))
                     .andExpect(method(HttpMethod.GET))
                     .andRespond(
                             withStatus(HttpStatus.OK)

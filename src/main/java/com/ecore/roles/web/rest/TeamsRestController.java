@@ -39,7 +39,7 @@ public class TeamsRestController implements TeamsApi {
             path = "/{teamId}",
             produces = {"application/json"})
     public ResponseEntity<TeamDto> getTeamById(
-                                                @PathVariable UUID teamId) {
+            @PathVariable UUID teamId) {
         return ResponseEntity
                 .status(200)
                 .body(fromModel(teamsService.getTeamById(teamId)));

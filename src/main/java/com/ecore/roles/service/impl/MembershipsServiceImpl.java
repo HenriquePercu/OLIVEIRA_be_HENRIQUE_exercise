@@ -51,10 +51,12 @@ public class MembershipsServiceImpl implements MembershipsService {
 
         roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
 
-        Team team = ofNullable(teamsService.getTeamById(membership.getTeamId())).orElseThrow(() -> new ResourceNotFoundException(Team.class, membership.getTeamId()));
+        Team team = ofNullable(teamsService.getTeamById(membership.getTeamId()))
+                .orElseThrow(() -> new ResourceNotFoundException(Team.class, membership.getTeamId()));
 
-        if(!team.getTeamMemberIds().contains(membership.getUserId())){
-            throw new InvalidArgumentException(Membership.class, "The provided user doesn't belong to the provided team.");
+        if (!team.getTeamMemberIds().contains(membership.getUserId())) {
+            throw new InvalidArgumentException(Membership.class,
+                    "The provided user doesn't belong to the provided team.");
         }
 
         return membershipRepository.save(membership);

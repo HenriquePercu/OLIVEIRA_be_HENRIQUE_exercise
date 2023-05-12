@@ -53,7 +53,7 @@ public class RolesApiTest {
         sendRequest(when()
                 .get("/v1/role")
                 .then())
-                .validate(404, "Not Found");
+                        .validate(404, "Not Found");
     }
 
     @Test
@@ -147,6 +147,5 @@ public class RolesApiTest {
         getRole(GIANNI_USER_UUID, UUID_1)
                 .validate(404, format("Role not found for %s, %s", UUID_1, GIANNI_USER_UUID));
     }
-
 
 }

@@ -12,5 +12,4 @@ public class InvalidArgumentException extends RuntimeException {
         super(format("Invalid '%s' object. %s", resource.getSimpleName(), message));
     }
 
-
 }

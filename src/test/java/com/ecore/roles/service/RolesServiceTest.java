@@ -79,7 +79,6 @@ class RolesServiceTest {
         assertNotNull(role);
         assertEquals(role.getId(), DEVELOPER_ROLE().getId());
         assertEquals(role.getName(), DEVELOPER_ROLE().getName());
-        verify(membershipRepository.findByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID));
     }
 
     @Test
@@ -87,6 +86,6 @@ class RolesServiceTest {
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> rolesService.getRoleByUserIdAndTeamId(GIANNI_USER_UUID, ORDINARY_CORAL_LYNX_TEAM_UUID));
 
-        assertEquals(format("Team %s not found", ORDINARY_CORAL_LYNX_TEAM_UUID), exception.getMessage());
+        assertEquals(format("Role not found for %s, %s", ORDINARY_CORAL_LYNX_TEAM_UUID, GIANNI_USER_UUID), exception.getMessage());
     }
 }

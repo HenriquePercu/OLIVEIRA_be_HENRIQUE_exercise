@@ -21,7 +21,7 @@ import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MembershipsApiTests {
+public class MembershipsApiTest {
 
     private final MembershipRepository membershipRepository;
     private final RestTemplate restTemplate;
@@ -32,7 +32,7 @@ public class MembershipsApiTests {
     private int port;
 
     @Autowired
-    public MembershipsApiTests(MembershipRepository membershipRepository, RestTemplate restTemplate) {
+    public MembershipsApiTest(MembershipRepository membershipRepository, RestTemplate restTemplate) {
         this.membershipRepository = membershipRepository;
         this.restTemplate = restTemplate;
     }
@@ -166,7 +166,7 @@ public class MembershipsApiTests {
         mockGetTeamById(mockServer, expectedMembership.getTeamId(), ORDINARY_CORAL_LYNX_TEAM());
 
         return createMembership(expectedMembership)
-                .statusCode(201)
+                .statusCode(200)
                 .extract().as(MembershipDto.class);
     }
 

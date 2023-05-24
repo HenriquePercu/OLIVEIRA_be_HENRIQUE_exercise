@@ -19,8 +19,9 @@ public class UsersServiceImpl implements UsersService {
         this.usersClient = usersClient;
     }
 
-    public User getUser(UUID id) {
-        return usersClient.getUser(id).getBody();
+    @Override
+    public User getUserById(UUID userId) {
+        return usersClient.getUser(userId).getBody();
     }
 
     public List<User> getUsers() {

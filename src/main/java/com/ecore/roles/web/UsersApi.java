@@ -10,5 +10,5 @@ public interface UsersApi {
 
     ResponseEntity<List<UserDto>> getUsers();
 
-    ResponseEntity<UserDto> getUser(UUID userId);
+    ResponseEntity<UserDto> getUserById(UUID userId);
 }

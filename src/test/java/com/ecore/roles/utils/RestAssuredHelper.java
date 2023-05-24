@@ -77,6 +77,36 @@ public class RestAssuredHelper {
                 .then());
     }
 
+    public static EcoreValidatableResponse getUserById(UUID userId) {
+        return sendRequest(given()
+                .pathParam("userId", userId)
+                .when()
+                .get("/v1/users/{userId}")
+                .then());
+    }
+
+    public static EcoreValidatableResponse getAllUsers() {
+        return sendRequest(given()
+                .when()
+                .get("/v1/users")
+                .then());
+    }
+
+    public static EcoreValidatableResponse getAllTeams() {
+        return sendRequest(given()
+                .when()
+                .get("/v1/teams")
+                .then());
+    }
+
+    public static EcoreValidatableResponse getTeamById(UUID teamId) {
+        return sendRequest(given()
+                .pathParam("teamId", teamId)
+                .when()
+                .get("/v1/teams/{teamId}")
+                .then());
+    }
+
     private static RequestSpecification givenNullableBody(Object object) {
         RequestSpecification requestSpecification = given();
         if (object != null) {
